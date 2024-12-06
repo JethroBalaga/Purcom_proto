@@ -1,59 +1,76 @@
-const questions = [
-    {
+const quizQuestions = [
+  {
       question: "What does HTML stand for?",
-      options: [
-        "Hyper Text Markup Language",
-        "High-Level Text Machine Learning",
-        "Hyper Tool Multi-Language",
-        "None of the above"
-      ],
+      options: ["HyperText Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"],
       correct: 0
-    },
-    {
-      question: "Which tag is used to define an unordered list?",
-      options: ["<ul>", "<ol>", "<li>", "<list>"],
+  },
+  {
+      question: "Which tag is used to create a hyperlink in HTML?",
+      options: ["<a>", "<link>", "<href>"],
       correct: 0
-    }
-  ];
-  
-  let currentQuestionIndex = 0;
-  
-  function loadQuestion() {
-    const questionElement = document.getElementById("quiz-question");
-    const optionsContainer = document.getElementById("quiz-options");
-  
-    // Clear previous options
-    optionsContainer.innerHTML = "";
-  
-    const question = questions[currentQuestionIndex];
-    questionElement.textContent = question.question;
-  
-    question.options.forEach((option, index) => {
+  },
+  {
+      question: "What does CSS stand for?",
+      options: ["Cascading Style Sheets", "Colorful Style Sheets", "Creative Style Sheets"],
+      correct: 0
+  },
+  {
+      question: "What does JavaScript primarily add to web pages?",
+      options: ["Structure", "Interactivity", "Styling"],
+      correct: 1
+  }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+// Function to load a question
+function loadQuestion() {
+  const questionElement = document.getElementById("quiz-question");
+  const optionsContainer = document.getElementById("quiz-options");
+
+  // Clear old options
+  optionsContainer.innerHTML = "";
+
+  // Load the current question
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+  questionElement.textContent = currentQuestion.question;
+
+  // Load the options
+  currentQuestion.options.forEach((option, index) => {
       const button = document.createElement("button");
       button.textContent = option;
-      button.onclick = () => checkAnswer(index);
+      button.classList.add("quiz-option");
+      button.addEventListener("click", () => checkAnswer(index));
       optionsContainer.appendChild(button);
-    });
-  }
-  
-  function checkAnswer(selectedIndex) {
-    const question = questions[currentQuestionIndex];
-  
-    if (selectedIndex === question.correct) {
+  });
+}
+
+// Function to check the answer
+function checkAnswer(selectedOption) {
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+  if (selectedOption === currentQuestion.correct) {
+      score++;
       alert("Correct!");
-    } else {
+  } else {
       alert("Wrong!");
-    }
-  
-    // Move to the next question
-    currentQuestionIndex++;
-  
-    if (currentQuestionIndex < questions.length) {
-      loadQuestion();
-    } else {
-      alert("Quiz completed!");
-    }
   }
-  
-  // Load the first question on page load
-  window.onload = loadQuestion;
+
+  // Load the next question or finish the quiz
+  currentQuestionIndex++;
+  if (currentQuestionIndex < quizQuestions.length) {
+      loadQuestion();
+  } else {
+      finishQuiz();
+  }
+}
+
+// Function to finish the quiz
+function finishQuiz() {
+  const quizContainer = document.getElementById("quiz");
+  quizContainer.innerHTML = `<h2>Quiz Completed!</h2>
+      <p>Your score: ${score}/${quizQuestions.length}</p>`;
+}
+window.onload = () => {
+  loadQuestion();
+};

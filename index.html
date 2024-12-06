@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Programming</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to Learn Programming</h1>
+    <p>Start your programming journey today!</p>
+    <button onclick="loadLesson(0)">Start Learning</button>
+  </header>
+
+  <main id="lesson" style="display: none;">
+    <h1 id="lesson-title"></h1>
+    <p id="lesson-content"></p>
+    <textarea id="code-editor" rows="10" cols="50"></textarea>
+    <button onclick="runCode()">Run Code</button>
+    <iframe id="output" style="width:100%; height:300px; border:1px solid black;"></iframe>
+
+    <div id="quiz">
+        <h1>Quiz Section</h1>
+        <p id="quiz-question">This is where the quiz question will appear.</p>
+        <div id="quiz-options">
+            <button>Option 1</button>
+            <button>Option 2</button>
+            <button>Option 3</button>
+        </div>
+    </div>
+  </main>
+  
+
+  <script src="Lessons.js"></script>
+  <script src="quiz.js"></script>
+</body>
+</html>
